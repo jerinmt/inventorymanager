@@ -1,26 +1,31 @@
 const db = require("../db/queries");
-const links = [
-  { href: "/", text: "Home" },
-  { href: "new", text: "New" },
-];
 
-async function messagesGet(req, res) {
-    const messages = await db.getAllMessages();
-    res.render("index", { links: links, messages: messages });
+async function updateCategoryGet(req, res) {
+  const categoryName = req.query.categoryName;
+  const productList = req.query.productList; 
+  res.render("newCategoryForm", {categoryName: categoryName, productList: productList});
 }
 
-async function newMessageGet(req, res) {
-    res.render("form", { links: links });
+async function updateCategoryPost(req, res) {
+  const categoryName = req.body.categoryName;
+  const productList = req.body.productList;
+  await db.updateCategory(categoryName, productList);//query
+  res.redirect("/");
 }
 
-async function newMessagePost(req, res) {
-    const  authorName  = req.body.authorName;
-    const  newMessage  = req.body.newMessage;
-    const  addedDate  = new Date();
-    await db.enterNewMessage(authorName, newMessage, addedDate);
-    res.redirect("/");
+async function updateItemGet(req, res) {
+  const itemName = req.query.itemName;
+  const categoryList = req.query.categoryList;
+  res.render("newItemForm", {itemName: itemName, categoryList: categoryList});
+}
+
+async function updateItemPost(req, res) {
+  const itemName = req.body.itemName;
+  const categoryList = req.body.categoryList;
+  await db.updateItem(itemName, categoryList);//query
+  res.redirect("/");
 }
 
 module.exports = {
-  messagesGet, newMessageGet, newMessagePost
+  updateCategoryGet, updateCategoryPost, updateItemGet, updateItemPost
 };
