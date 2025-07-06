@@ -6,8 +6,7 @@ async function newCategoryGet(req, res) {
 
 async function newCategoryPost(req, res) {
   const categoryName = req.body.categoryName;
-  const productList = req.body.productList;
-  await db.createCategory(categoryName, productList);//query
+  await db.createCategory(categoryName);//query 2
   res.redirect("/");
 }
 
@@ -17,8 +16,9 @@ async function newItemGet(req, res) {
 
 async function newItemPost(req, res) {
   const itemName = req.body.itemName;
-  const categoryList = req.body.categoryList;
-  await db.createItem(itemName, categoryList);//query
+  const quantity = req.body.quantity;
+  const price = req.body.price;
+  await db.createItem(itemName, quantity, price);//query 5
   res.redirect("/");
 }
 

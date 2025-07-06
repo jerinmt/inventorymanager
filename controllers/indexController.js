@@ -6,7 +6,7 @@ async function homeGet(req, res) {
 
 async function productsGet(req, res) {
     const category = req.query.category;
-    const products = await db.getProducts(category);//query
+    const products = await db.getProducts(category);//query 1
     res.render("products", { products: products });
 }
 
