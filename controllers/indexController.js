@@ -12,6 +12,11 @@ async function productsGet(req, res) {
     res.render("products", { products: products, allCategories: allCategories });
 }
 
+async function allProductsGet(req, res) {
+    const products = await db.getAllProducts(); //query 2
+    const allCategories = await db.getCategories();
+    res.render("products", { products: products, allCategories: allCategories });
+}
 module.exports = {
-  homeGet, productsGet
+  homeGet, productsGet, allProductsGet
 };

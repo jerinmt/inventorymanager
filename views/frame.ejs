@@ -9,15 +9,15 @@
 <div class="categoryList">
     <ul>
         <li>
-            <a href="/products?category=all_items">All</a>
+            <a href="/allProducts">All</a>
         </li>
         <% for (let i = 0; i < allCategories.length; i++) { %>
         <li>
-            <a href="/products?category=<%= allCategories[i] %>">
-                <span> <%= allCategories[i] %> </span>
+            <a href="/products?category=<%= allCategories[i].name %>">
+                <span> <%= allCategories[i].name %> </span>
             </a>
-            <a href="/update/category?category=<%= allCategories[i] %>">Edit</a>
-            <a href="/delete/category?category=<%= allCategories[i] %>">Delete</a>
+            <a href="/update/category?category=<%= allCategories[i].name %>">Edit</a>
+            <a href="/delete/category?category=<%= allCategories[i].name %>">Delete</a>
         </li>
         <% } %>
     </ul>

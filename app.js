@@ -1,5 +1,6 @@
 //imports
 const express = require("express");
+require("dotenv").config();
 //const newMessageRouter = require("./routes/newMessageRouter");
 const indexRouter = require("./routes/indexRouter");
 const createRouter = require("./routes/createRouter");
@@ -10,7 +11,7 @@ const path = require("node:path");
 //initialisations
 const app = express();
 const assetsPath = path.join(__dirname, "public");
-require("dotenv").config();
+
 
 //static files
 app.use(express.static(assetsPath));

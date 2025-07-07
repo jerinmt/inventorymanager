@@ -7,5 +7,6 @@ const indexRouter = Router();
 indexRouter.get("/", indexController.homeGet);
 //categorypages get
 indexRouter.get("/products", indexController.productsGet);
+indexRouter.get("/allProducts", indexController.allProductsGet);
 
 module.exports = indexRouter;
