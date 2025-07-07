@@ -3,7 +3,72 @@
     padding: 0%;
     box-sizing: border-box;
 }
+html {
+    height: 100%;
+}
+body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
 header,
 footer {
     background-color: chocolate;
+    text-align: center;
+    font-size: large;
+    z-index: 1;
+}
+nav {
+    display: flex;
+    gap: 100px;
+    justify-content: center;
+}
+footer {
+    margin-top: auto;
+}
+.categoryList {
+    position: fixed;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+    background-color: brown;
+    padding: 70px 10px;
+}
+.categoryList li {
+    list-style: none;
+    margin-bottom: 30px;
+    font-size: larger;
+}
+.categoryList a,
+header a {
+    color: white;
+    text-decoration: none;
+}
+.changeLinks {
+    font-size: small;
+}
+.contents {
+    align-self: center;
+}
+table {
+    border-collapse: collapse;
+    width: 60%;
+}
+td,
+th {
+    border: 2px solid black;
+    padding: 10px;
+    text-align: center;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    gap: 20px;
+    margin: 50px;
+}
+fieldset {
+    display: flex;
+    flex-direction: column;
 }

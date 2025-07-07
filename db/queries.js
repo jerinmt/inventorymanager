@@ -24,7 +24,7 @@ async function createCategory(categoryName) {
     await pool.query(`
         CREATE TABLE IF NOT EXISTS ${categoryName} (
             id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-            product_name VARCHAR(30) NOT NULL UNIQUE
+            product_name VARCHAR(30)
         )
     `);
     await pool.query(`INSERT INTO categories (name) VALUES ('${categoryName}') ON CONFLICT DO NOTHING`);
@@ -36,18 +36,21 @@ async function createItem(itemName, quantity, price) {
 
 async function deleteCategory(category) {
   await pool.query(`DROP TABLE ${category}`);
+  await pool.query(`DELETE FROM categories WHERE name = '${category}'`);
 }
 
 async function clearItem(category, itemName) {
-    await pool.query(`DELETE FROM ${category} WHERE product_name = ${itemName}`);    
+    await pool.query(`DELETE FROM ${category} WHERE product_name = '${itemName}'`);    
 }
 
 async function deleteItem(itemName) {
-    const rows = getCategories();
-    await pool.query(`DELETE FROM all_items WHERE id = ${itemName}`);
-    rows.forEach(element => {
-        clearItem(element, itemName);
-    });    
+    const rows = await getCategories();
+    await pool.query(`DELETE FROM all_items WHERE name = '${itemName}'`);
+    if(rows.length) {
+        for(let i=0; i < rows.length; i++) {
+            await clearItem(rows[i].name, itemName);
+        }
+    }
 }
 
 async function addItems(category, item) {
@@ -56,38 +59,42 @@ async function addItems(category, item) {
 
 async function updateCategory(oldCategory, newCategory, productList) {
     if(productList) {
+        if(!Array.isArray(productList)) {
+            productList = [productList];
+        }
         await pool.query(`DELETE FROM ${oldCategory}`);
-        productList.forEach(element => {
-            addItems(oldCategory, element);
-        });
+        for(let i=0; i < productList.length; i++) {
+            await addItems(oldCategory, productList[i]);
+        }
     }
     if(newCategory) {
         await pool.query(`ALTER TABLE ${oldCategory} RENAME TO ${newCategory}`);
+        await pool.query(`UPDATE categories SET name = '${newCategory}' WHERE name = '${oldCategory}'`);
     }
 }
 
 async function getItemDetails(itemName) {
-    const { rows } = await pool.query(`SELECT quantity, price FROM all_items WHERE name = ${itemName}`);
+    const { rows } = await pool.query(`SELECT quantity, price FROM all_items WHERE name = '${itemName}'`);
     return rows;
 }
 
 async function changeItem(category, oldName, newName) {
-    await pool.query(`UPDATE ${category} SET product_name = ${newName} WHERE product_name = ${oldName}`);    
+    await pool.query(`UPDATE ${category} SET product_name = '${newName}' WHERE product_name = '${oldName}'`);    
 }
 
 async function updateItem(oldName, newName, quantity, price) {
     if(quantity) {
-        await pool.query(`UPDATE all_items SET quantity = ${quantity} WHERE name = ${oldName}`);
+        await pool.query(`UPDATE all_items SET quantity = ${quantity} WHERE name = '${oldName}'`);
     }
     if(price) {
-        await pool.query(`UPDATE all_items SET price = ${price} WHERE name = ${oldName}`);
+        await pool.query(`UPDATE all_items SET price = ${price} WHERE name = '${oldName}'`);
     }
     if(newName) {
-        const rows = getCategories();
-        rows.forEach(element => {
-            changeItem(element, oldName, newName);
-        });
-        await pool.query(`UPDATE all_items SET name = ${newName} WHERE name = ${oldName}`);
+        const rows = await getCategories();
+        for(let i=0; i < rows.length; i++) {
+            await changeItem(rows[i].name, oldName, newName);
+        }
+        await pool.query(`UPDATE all_items SET name = '${newName}' WHERE name = '${oldName}'`);
     }
 }
 

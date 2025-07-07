@@ -6,7 +6,7 @@
     </head>
     <body>
         <%- include('frame', {allCategories: allCategories}) %>
-        <table>
+        <table class="contents">
             <tr>
                 <th>Name</th>
                 <th>Quantity</th>
@@ -20,7 +20,7 @@
                 <td><%= products[i].price %></td>
                 <td>
                     <a href="/update/item?itemName=<%= products[i].name %>">Edit</a>
-                    <a href="/delete/category?itemName=<%= products[i].name %>">Delete</a>
+                    <a href="/delete/item?itemName=<%= products[i].name %>">Delete</a>
                 </td>
             </tr>
             <% } %>

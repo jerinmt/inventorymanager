@@ -6,11 +6,20 @@
     </head>
     <body>
         <%- include('frame', {allCategories: allCategories}) %>
+        <div class="contents">
         <div>
             <h2>Current state</h2>
-            <p>Name:<%= itemName %></p>
-            <p>Quantity:<%= itemDetails.quantity %></p>
-            <p>Price:<%= itemDetails.price %></p>
+            <h3>Name:<%= itemName %></h3>
+            <table>
+                <tr>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+                <tr>
+                    <td><%= itemDetails[0].quantity %></td>
+                    <td><%= itemDetails[0].price %></td>
+                </tr>
+            </table>
         </div>
         <form action="/update/item" method="post">
             <input type="hidden" name="oldName" value="<%= itemName %>">
@@ -26,6 +35,7 @@
             <button type="button" onclick="history.back()">Cancel</button>
             <button type="submit">Save</button>
         </form>
+        </div>
         <footer>There is absolutely no copyright</footer>
     </body>
 </html>

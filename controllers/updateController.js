@@ -3,7 +3,7 @@ const db = require("../db/queries");
 async function updateCategoryGet(req, res) {
   const category = req.query.category;
   const products = await db.getProducts(category);
-  const allProducts = await db.getProducts("all_items");
+  const allProducts = await db.getAllProducts();
   const allCategories = await db.getCategories();
   res.render(
     "editCategoryForm",

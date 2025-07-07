@@ -6,6 +6,7 @@
     </head>
     <body>
         <%- include('frame', {allCategories: allCategories}) %>
+        <div class="contents">
         <div>
             <h2>Current state</h2>
             <h3><%= category %></h3>
@@ -29,16 +30,19 @@
             <label>Enter a new name if required:
                 <input type="text" name="newCategory">
             </label>
-            <label>Select the new list of products if required:
-                <select name="productList" multiple>
-                    <% for (let i = 0; i < allProducts.length; i++) { %>
-                    <option value="<%= allProducts[i].name %>"><%= allProducts[i].name %></option>
-                    <% } %>
-                </select>
-            </label>
+            <fieldset>
+                <legend>Select the new list of products if required:</legend>
+                <% for (let i = 0; i < allProducts.length; i++) { %>
+                <label>
+                    <input type="checkbox" name="productList" value="<%= allProducts[i].name %>">
+                    <%= allProducts[i].name %>
+                </label>
+                <% } %>
+            </fieldset>
             <button type="button" onclick="history.back()">Cancel</button>
             <button type="submit">Save</button>
         </form>
+        </div>
         <footer>There is absolutely no copyright</footer>
     </body>
 </html>

@@ -6,7 +6,7 @@
     </head>
     <body>
         <%- include('frame', {allCategories: allCategories}) %>
-        <form action="/create/category" method="post">
+        <form action="/create/category" method="post" class="contents">
             <label>Enter the name of the category:
                 <input type="text" name="categoryName" required>
             </label>
