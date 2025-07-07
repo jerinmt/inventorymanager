@@ -1,7 +1,8 @@
 const db = require("../db/queries");
 
 async function newCategoryGet(req, res) {
-  res.render("newCategoryForm");
+  const allCategories = await db.getCategories();
+  res.render("newCategoryForm", {allCategories: allCategories});
 }
 
 async function newCategoryPost(req, res) {
@@ -11,7 +12,8 @@ async function newCategoryPost(req, res) {
 }
 
 async function newItemGet(req, res) {
-  res.render("newItemForm");
+  const allCategories = await db.getCategories();
+  res.render("newItemForm", {allCategories: allCategories});
 }
 
 async function newItemPost(req, res) {

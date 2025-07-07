@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home</title>
+        <link rel="stylesheet" href="/styles.css">
+    </head>
+    <body>
+        <%- include('frame', {allCategories: allCategories}) %>
+        <div>
+            <h2>Current state</h2>
+            <p>Name:<%= itemName %></p>
+            <p>Quantity:<%= itemDetails.quantity %></p>
+            <p>Price:<%= itemDetails.price %></p>
+        </div>
+        <form action="/update/item" method="post">
+            <input type="hidden" name="oldName" value="<%= itemName %>">
+            <label>Change name if required:
+                <input type="text" name="newName">
+            </label>
+            <label>Change quantity if required:
+                <input type="number" name="quantity">
+            </label>
+            <label>Change price if required:
+                <input type="number" name="price">
+            </label>
+            <button type="button" onclick="history.back()">Cancel</button>
+            <button type="submit">Save</button>
+        </form>
+        <footer>There is absolutely no copyright</footer>
+    </body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home</title>
+        <link rel="stylesheet" href="/styles.css">
+    </head>
+    <body>
+        <%- include('frame', {allCategories: allCategories}) %>
+        <form action="/create/item" method="post">
+            <label>Enter the name of the product:
+                <input type="text" name="itemName" required>
+            </label>
+            <label>Enter the quantity in stock:
+                <input type="number" name="quantity" required>
+            </label>
+            <label>Enter the name of the product:
+                <input type="number" name="price" required>
+            </label>
+            <button type="button" onclick="history.back()">Cancel</button>
+            <button type="submit">Save</button>
+        </form>
+        <footer>There is absolutely no copyright</footer>
+    </body>
+</html>

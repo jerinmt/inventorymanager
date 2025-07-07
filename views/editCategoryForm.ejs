@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home</title>
+        <link rel="stylesheet" href="/styles.css">
+    </head>
+    <body>
+        <%- include('frame', {allCategories: allCategories}) %>
+        <div>
+            <h2>Current state</h2>
+            <h3><%= category %></h3>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+                <% for (let i = 0; i < products.length; i++) { %>
+                <tr>
+                    <td><%= products[i].name %></td>
+                    <td><%= products[i].quantity %></td>
+                    <td><%= products[i].price %></td>
+                </tr>
+                <% } %>
+            </table>
+        </div>
+        <form action="/update/category" method="post">
+            <input type="hidden" name="oldCategory" value="<%= category %>">
+            <label>Enter a new name if required:
+                <input type="text" name="newCategory">
+            </label>
+            <label>Select the new list of products if required:
+                <select name="productList" multiple>
+                    <% for (let i = 0; i < allProducts.length; i++) { %>
+                    <option value="<%= allProducts[i].name %>"><%= allProducts[i].name %></option>
+                    <% } %>
+                </select>
+            </label>
+            <button type="button" onclick="history.back()">Cancel</button>
+            <button type="submit">Save</button>
+        </form>
+        <footer>There is absolutely no copyright</footer>
+    </body>
+</html>

@@ -1,0 +1,24 @@
+<header>
+    <h1>Cocoa Journey Inventory</h1>
+    <div>
+        <a href="/" >Home</a>
+        <a href="/create/category" >Add a new category</a>
+        <a href="/create/item" >Add a new product</a>
+    </div>
+</header>
+<div class="categoryList">
+    <ul>
+        <li>
+            <a href="/products?category=all_items">All</a>
+        </li>
+        <% for (let i = 0; i < allCategories.length; i++) { %>
+        <li>
+            <a href="/products?category=<%= allCategories[i] %>">
+                <span> <%= allCategories[i] %> </span>
+            </a>
+            <a href="/update/category?category=<%= allCategories[i] %>">Edit</a>
+            <a href="/delete/category?category=<%= allCategories[i] %>">Delete</a>
+        </li>
+        <% } %>
+    </ul>
+</div>

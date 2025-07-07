@@ -2,9 +2,13 @@ const db = require("../db/queries");
 
 async function updateCategoryGet(req, res) {
   const category = req.query.category;
-  const productList = await db.getProducts(category);
+  const products = await db.getProducts(category);
   const allProducts = await db.getProducts("all_items");
-  res.render("editCategoryForm", {category: category, productList: productList, allProducts: allProducts});
+  const allCategories = await db.getCategories();
+  res.render(
+    "editCategoryForm",
+    {category: category, products: products, allProducts: allProducts, allCategories: allCategories}
+  );
 }
 
 async function updateCategoryPost(req, res) {
@@ -18,7 +22,8 @@ async function updateCategoryPost(req, res) {
 async function updateItemGet(req, res) {
   const itemName = req.query.itemName;
   const itemDetails = await db.getItemDetails(itemName);//query 6
-  res.render("editItemForm", {itemName: itemName, itemDetails: itemDetails});
+  const allCategories = await db.getCategories();
+  res.render("editItemForm", {itemName: itemName, itemDetails: itemDetails, allCategories: allCategories});
 }
 
 async function updateItemPost(req, res) {

@@ -1,5 +1,9 @@
 const pool = require("./pool");
 
+async function getCategories() {
+    const { rows } = await pool.query("SELECT name FROM categories");
+    return rows;
+}
 async function getProducts(category) {
   const { rows } = await pool.query(`
     SELECT name, quantity, price 
@@ -32,7 +36,7 @@ async function clearItem(category, itemName) {
 }
 
 async function deleteItem(itemName) {
-    const { rows } = await pool.query("SELECT name FROM categories");
+    const rows = getCategories();
     await pool.query("DELETE FROM all_items WHERE id = $1", [itemName]);
     rows.forEach(element => {
         clearItem(element, itemName);
@@ -56,7 +60,7 @@ async function updateCategory(oldCategory, newCategory, productList) {
 }
 
 async function getItemDetails(itemName) {
-    const { rows } = await pool.query("SELECT name, quantity, price FROM all_items WHERE name = $1", [itemName]);
+    const { rows } = await pool.query("SELECT quantity, price FROM all_items WHERE name = $1", [itemName]);
     return rows;
 }
 
@@ -72,7 +76,7 @@ async function updateItem(oldName, newName, quantity, price) {
         await pool.query("UPDATE all_items SET price = $1 WHERE name = $2" , [price, oldName]);
     }
     if(newName) {
-        const { rows } = await pool.query("SELECT name FROM categories");
+        const rows = getCategories();
         rows.forEach(element => {
             changeItem(element, oldName, newName);
         });
@@ -82,6 +86,7 @@ async function updateItem(oldName, newName, quantity, price) {
 
 module.exports = {
   getProducts,
+  getCategories,
   createCategory,
   createItem,
   deleteCategory,
