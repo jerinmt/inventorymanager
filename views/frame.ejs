@@ -1,9 +1,9 @@
 <header>
-    <h1>Cocoa Journey Inventory</h1>
+    <h1>The Cocoa Bear Inventory</h1>
     <nav>
         <a href="/" >Home</a>
-        <a href="/create/category" >Add a new category</a>
-        <a href="/create/item" >Add a new product</a>
+        <a href="/auth/create/category" >Add a new category</a>
+        <a href="/auth/create/item" >Add a new product</a>
     </nav>
 </header>
 <div class="categoryList">
@@ -16,8 +16,8 @@
             <a href="/products?category=<%= allCategories[i].name %>">
                 <span> <%= allCategories[i].name %> </span>
             </a>
-            <a href="/update/category?category=<%= allCategories[i].name %>" class="changeLinks">Edit</a>
-            <a href="/delete/category?categoryName=<%= allCategories[i].name %>" class="changeLinks">Delete</a>
+            <a href="/auth/update/category?category=<%= allCategories[i].name %>" class="changeLinks">Edit</a>
+            <a href="/auth/delete/category?categoryName=<%= allCategories[i].name %>" class="changeLinks">Delete</a>
         </li>
         <% } %>
     </ul>

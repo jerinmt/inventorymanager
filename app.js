@@ -1,11 +1,11 @@
 //imports
 const express = require("express");
 require("dotenv").config();
-//const newMessageRouter = require("./routes/newMessageRouter");
 const indexRouter = require("./routes/indexRouter");
 const createRouter = require("./routes/createRouter");
 const updateRouter = require("./routes/updateRouter");
 const deleteRouter = require("./routes/deleteRouter");
+const authRouter = require("./routes/authRouter");
 const path = require("node:path");
 
 //initialisations
@@ -27,6 +27,7 @@ app.use(express.urlencoded({extended: true}));
 app.use("/create", createRouter);
 app.use("/update", updateRouter);
 app.use("/delete", deleteRouter);
+app.use("/auth", authRouter);
 app.use("/", indexRouter);
 
 // Error handling

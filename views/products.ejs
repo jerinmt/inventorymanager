@@ -19,8 +19,8 @@
                 <td><%= products[i].quantity %></td>
                 <td><%= products[i].price %></td>
                 <td>
-                    <a href="/update/item?itemName=<%= products[i].name %>">Edit</a>
-                    <a href="/delete/item?itemName=<%= products[i].name %>">Delete</a>
+                    <a href="/auth/update/item?itemName=<%= products[i].name %>">Edit</a>
+                    <a href="/auth/delete/item?itemName=<%= products[i].name %>">Delete</a>
                 </td>
             </tr>
             <% } %>

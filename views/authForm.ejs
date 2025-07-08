@@ -1,0 +1,11 @@
+<form action="/auth" method="post">
+    <label>
+        <input type="password" name="passcode" required>
+        Enter the password
+    </label>
+    <input type="hidden" name="nextPath" value="<%= nextPath %>">
+    <button type="submit">Continue</button>
+</form>
+<form action="/">
+    <button type="submit">Back to Home</button>
+</form>
